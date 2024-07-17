@@ -13,11 +13,11 @@ func main() {
 	fmt.Println("Creating ECS Client Options")
 	env := ecsclientgowrapper.ECS_ENVIRONMENT_TYPE_INTEGRATION
 	options := ecsgoclient.EcsClientOptions{
-		Client:       "ECS_Test_Agrawalsh",
+		Client:       "AzureService",
 		ProjectTeams: []string{"ResponsibleAI"},
 		TargetFilters: map[string][]string{
-			"EnvironmentName": {"YourEnvironment"},
-			"ServiceName":     {"YourService"},
+			"EnvironmentName": {"Pre-Test"},
+			"ServiceName":     {"RAI-ECS-Test"},
 		},
 		Logger:                    &ECSLogger{},
 		LogLevel:                  ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION,
