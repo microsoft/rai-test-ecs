@@ -223,8 +223,9 @@ func (ecsClient *EcsClient) AddOptionsMonitorToEcsClient(options OptionsUpdateRe
 		}
 		logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, "Full Config Keys: ")
 		for key := range fullConfig {
-			logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, fmt.Sprint("Key: %s", key))
+			logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, fmt.Sprintf("Key: %s", key))
 		}
+		logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, fmt.Sprintf("Header value: %v", fullConfig["Headers"]))
 
 		clientConfig, ok := fullConfig[projectTeam]
 		if !ok {
