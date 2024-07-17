@@ -39,11 +39,22 @@ func main() {
 
 	// Step 2: Get new options registered with ECS
 	fmt.Println("RAI-ECS-Test: Registering Monitor")
-	config_obj, err := registerOptionsMonitor(ecsClient)
+	config_obj := &Config{config: ""}
+	err = ecsClient.AddOptionsMonitorToEcsClient(config_obj, "ResponsibleAI", "SampleOptions")
 	if err != nil {
 		fmt.Printf("RAI-ECS-Test: Error: %v\n", err)
 		return
 	}
+
+	fmt.Println("RAI-ECS-Test: Setting Another Callback Function")
+	err = ecsClient.RegisterUpdateEventCallbackFunc(config_obj, func(innerOptionsUpdateError error) {
+		if innerOptionsUpdateError != nil {
+			fmt.Printf("RAI-ECS-Test: Error. %v", innerOptionsUpdateError.Error())
+			return
+		}
+		fmt.Printf("RAI-ECS-Test: Received config update event")
+	})
+
 	old_config := Config{config: config_obj.config}
 	for {
 		fmt.Println("RAI-ECS-Test: Waiting for config...")
@@ -70,10 +81,4 @@ func (o *Config) OnOptionsUpdateReceived(bytes []byte) error {
 	parsedOptions := string(bytes)
 	o.config = parsedOptions
 	return nil
-}
-
-func registerOptionsMonitor(client *ecsgoclient.EcsClient) (*Config, error) {
-	options := &Config{config: ""}
-	err := client.AddOptionsMonitorToEcsClient(options, "ResponsibleAI", "SampleOptions")
-	return options, err
 }
