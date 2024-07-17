@@ -121,7 +121,7 @@ func NewEcsClient(ecsClientOptions EcsClientOptions) (*EcsClient, error) {
 		EnableExp:                         ecsClientOptions.EnableExp,
 	}
 
-	internalClient, err := ecsclientgowrapper.CreateEcsClient(ecsclientgowrapper.ECS_ENVIRONMENT_TYPE_PRODUCTION, ecsClientOptions.Client, ecsClientOptions.ProjectTeams, internalClientOptions)
+	internalClient, err := ecsclientgowrapper.CreateEcsClient(ecsclientgowrapper.ECS_ENVIRONMENT_TYPE_INTEGRATION, ecsClientOptions.Client, ecsClientOptions.ProjectTeams, internalClientOptions)
 	if err != nil {
 		return nil, err
 	}
