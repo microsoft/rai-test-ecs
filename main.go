@@ -39,7 +39,11 @@ func main() {
 
 	// Step 2: Get new options registered with ECS
 	fmt.Println("Registering Monitor")
-	config_obj := registerOptionsMonitor(ecsClient)
+	config_obj, err := registerOptionsMonitor(ecsClient)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		return
+	}
 	old_config := Config{config: config_obj.config}
 	for {
 		fmt.Println("Waiting for config...")
@@ -68,8 +72,8 @@ func (o *Config) OnOptionsUpdateReceived(bytes []byte) error {
 	return nil
 }
 
-func registerOptionsMonitor(client *ecsgoclient.EcsClient) *Config {
+func registerOptionsMonitor(client *ecsgoclient.EcsClient) (*Config, error) {
 	options := &Config{config: ""}
-	client.AddOptionsMonitorToEcsClient(options, "ResponsibleAI", "SampleOptions")
-	return options
+	err := client.AddOptionsMonitorToEcsClient(options, "ResponsibleAI", "SampleOptions")
+	return options, err
 }
