@@ -19,7 +19,8 @@ func main() {
 			"EnvironmentName": {"YourEnvironment"},
 			"ServiceName":     {"YourService"},
 		},
-		Logger:                    ECSLogger{},
+		Logger:                    &ECSLogger{},
+		LogLevel:                  ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION,
 		AuthenticationEnvironment: &env,
 		AuthenticationMethod:      ecsclientgowrapper.ECS_AUTHENTICATION_METHOD_USERASSIGNEDMANAGEDIDENTITY,
 		TenantId:                  "72f988bf-86f1-41af-91ab-2d7cd011db47",
@@ -53,7 +54,7 @@ func main() {
 
 type ECSLogger struct{}
 
-func (ecslogger ECSLogger) Log(logLevel ecsclientgowrapper.ECS_LOG_LEVEL, msg string) {
+func (ecslogger *ECSLogger) Log(logLevel ecsclientgowrapper.ECS_LOG_LEVEL, msg string) {
 	fmt.Printf("Received log. %v: %v \n", logLevel, msg)
 }
 
