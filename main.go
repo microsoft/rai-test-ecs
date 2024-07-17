@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello!")
-	fmt.Println("Creating ECS Client Options")
+	fmt.Println("RAI-ECS-Test: Hello!")
+	fmt.Println("RAI-ECS-Test: Creating ECS Client Options")
 	env := ecsclientgowrapper.ECS_ENVIRONMENT_TYPE_INTEGRATION
 	options := ecsgoclient.EcsClientOptions{
 		Client:       "AzureService",
@@ -29,26 +29,26 @@ func main() {
 
 	var err error
 	var ecsClient *ecsgoclient.EcsClient
-	fmt.Println("Creating ECS Client")
+	fmt.Println("RAI-ECS-Test: Creating ECS Client")
 	ecsClient, err = ecsgoclient.NewEcsClient(options)
 
 	if err != nil {
-		fmt.Printf("Error: %v\n", err)
+		fmt.Printf("RAI-ECS-Test: Error: %v\n", err)
 		return
 	}
 
 	// Step 2: Get new options registered with ECS
-	fmt.Println("Registering Monitor")
+	fmt.Println("RAI-ECS-Test: Registering Monitor")
 	config_obj, err := registerOptionsMonitor(ecsClient)
 	if err != nil {
-		fmt.Printf("Error: %v\n", err)
+		fmt.Printf("RAI-ECS-Test: Error: %v\n", err)
 		return
 	}
 	old_config := Config{config: config_obj.config}
 	for {
-		fmt.Println("Waiting for config...")
+		fmt.Println("RAI-ECS-Test: Waiting for config...")
 		if old_config.config != config_obj.config {
-			fmt.Printf("New Config Recieved: %s", config_obj.config)
+			fmt.Printf("RAI-ECS-Test: New Config Recieved: %s", config_obj.config)
 			old_config.config = config_obj.config
 		}
 		time.Sleep(15 * time.Second)
@@ -59,7 +59,7 @@ func main() {
 type ECSLogger struct{}
 
 func (ecslogger *ECSLogger) Log(logLevel ecsclientgowrapper.ECS_LOG_LEVEL, msg string) {
-	fmt.Printf("Received log. %v: %v \n", logLevel, msg)
+	fmt.Printf("ECS Internal Log: %v: %v \n", logLevel, msg)
 }
 
 type Config struct {
