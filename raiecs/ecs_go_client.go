@@ -217,15 +217,16 @@ func (ecsClient *EcsClient) RegisterUpdateEventCallbackFunc(options OptionsUpdat
 func (ecsClient *EcsClient) AddOptionsMonitorToEcsClient(options OptionsUpdateReceiver, projectTeam string, optionName string) error {
 	var checkSum *string
 	var updateFunc ecsOptionsUpdateFunc = func(config string, logger ecsclientgowrapper.Logger) (error, bool) {
+		logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_CRITICAL, config)
 		var fullConfig map[string]interface{}
 		if err := json.Unmarshal([]byte(config), &fullConfig); err != nil {
 			return fmt.Errorf("failed to unmarshal ecs config"), false
 		}
-		logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, "Full Config Keys: ")
-		for key := range fullConfig {
-			logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, fmt.Sprintf("Key: %s", key))
-		}
-		logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, fmt.Sprintf("Header value: %v", fullConfig["Headers"]))
+		// logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, "Full Config Keys: ")
+		// for key := range fullConfig {
+		// 	logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, fmt.Sprintf("Key: %s", key))
+		// }
+		// logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, fmt.Sprintf("Header value: %v", fullConfig["Headers"]))
 
 		clientConfig, ok := fullConfig[projectTeam]
 		if !ok {
