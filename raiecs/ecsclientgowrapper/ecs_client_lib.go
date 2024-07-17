@@ -1,6 +1,7 @@
 package ecsclientgowrapper
 
 import (
+	"fmt"
 	"unsafe"
 )
 
@@ -115,6 +116,7 @@ func (ecsClient EcsClient) GetConfig(ecsRequestIdentifiers EcsRequestIdentifiers
 
 	status_code := C.ecs_client_get_config(*ecsClient.ecsClientHandle, crequestIdentifiers, cRequestIdentifiersLen, &out_config)
 	go_out_config := C.GoString(out_config)
+	fmt.Printf("Got Config: %s\n", go_out_config)
 
 	return go_out_config, statusCodeToError(status_code)
 }
