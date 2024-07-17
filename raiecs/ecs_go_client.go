@@ -221,6 +221,10 @@ func (ecsClient *EcsClient) AddOptionsMonitorToEcsClient(options OptionsUpdateRe
 		if err := json.Unmarshal([]byte(config), &fullConfig); err != nil {
 			return fmt.Errorf("failed to unmarshal ecs config"), false
 		}
+		logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, "Full Config Keys: ")
+		for key := range fullConfig {
+			logger.Log(ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION, fmt.Sprint("Key: %s", key))
+		}
 
 		clientConfig, ok := fullConfig[projectTeam]
 		if !ok {
