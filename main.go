@@ -23,7 +23,7 @@ func main() {
 		AuthenticationEnvironment: &env,
 		AuthenticationMethod:      ecsclientgowrapper.ECS_AUTHENTICATION_METHOD_USERASSIGNEDMANAGEDIDENTITY,
 		TenantId:                  "72f988bf-86f1-41af-91ab-2d7cd011db47",
-		ClientId:                  "add30c60-c1ac-43e6-992a-52c4da308a92",
+		ClientId:                  "5aebd2f3-8d5c-45aa-ab66-087ca711c3c4",
 	}
 
 	var err error
@@ -32,7 +32,8 @@ func main() {
 	ecsClient, err = ecsgoclient.NewEcsClient(options)
 
 	if err != nil {
-		// throw error + log
+		fmt.Printf("Error: %v\n", err)
+		return
 	}
 
 	// Step 2: Get new options registered with ECS
