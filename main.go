@@ -11,7 +11,7 @@ import (
 func main() {
 	fmt.Println("RAI-ECS-Test: Hello!")
 	fmt.Println("RAI-ECS-Test: Creating ECS Client Options")
-	env := ecsclientgowrapper.ECS_ENVIRONMENT_TYPE_INTEGRATION
+	// env := ecsclientgowrapper.ECS_ENVIRONMENT_TYPE_INTEGRATION
 	options := ecsgoclient.EcsClientOptions{
 		Client:       "AzureService",
 		ProjectTeams: []string{"ResponsibleAI"},
@@ -19,12 +19,12 @@ func main() {
 			"EnvironmentName": {"Pre-Test"},
 			"ServiceName":     {"RAI-ECS-Test"},
 		},
-		Logger:                    &ECSLogger{},
-		LogLevel:                  ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION,
-		AuthenticationEnvironment: &env,
-		AuthenticationMethod:      ecsclientgowrapper.ECS_AUTHENTICATION_METHOD_USERASSIGNEDMANAGEDIDENTITY,
-		TenantId:                  "72f988bf-86f1-41af-91ab-2d7cd011db47",
-		ClientId:                  "5aebd2f3-8d5c-45aa-ab66-087ca711c3c4",
+		Logger:   &ECSLogger{},
+		LogLevel: ecsclientgowrapper.ECS_LOG_LEVEL_INFORMATION,
+		// AuthenticationEnvironment: &env,
+		// AuthenticationMethod:      ecsclientgowrapper.ECS_AUTHENTICATION_METHOD_USERASSIGNEDMANAGEDIDENTITY,
+		// TenantId:                  "72f988bf-86f1-41af-91ab-2d7cd011db47",
+		// ClientId:                  "5aebd2f3-8d5c-45aa-ab66-087ca711c3c4",
 	}
 
 	var err error
